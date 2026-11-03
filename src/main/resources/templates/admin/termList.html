@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学期管理</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="topbar">
+        <span class="brand"><span class="logo"><i class="fa-solid fa-graduation-cap"></i></span>班级学生成绩管理系统</span>
+        <span><a href="/home">首页</a> <a href="/logout">退出登录</a></span>
+    </div>
+    <div class="container">
+        <div class="card">
+        <h2>学期管理</h2>
+
+    <form action="/admin/term/add" method="post">
+        学期名称：<input name="termName" required placeholder="如 2026-2027-1">
+        起始学年：<input name="startYear" placeholder="如 2026">
+        学期序号：<input name="semester" type="number" placeholder="1或2">
+        <button>新增</button>
+    </form>
+
+    <table border="1" cellpadding="6" cellspacing="0">
+        <tr><th>ID</th><th>名称 / 起始学年 / 学期</th><th>操作</th></tr>
+        <tr th:each="t : ${terms}">
+            <td th:text="${t.id}"></td>
+            <td>
+                <form action="/admin/term/edit" method="post">
+                    <input type="hidden" name="id" th:value="${t.id}">
+                    <input name="termName" th:value="${t.termName}">
+                    <input name="startYear" th:value="${t.startYear}">
+                    <input name="semester" type="number" th:value="${t.semester}">
+                    <button>保存</button>
+                </form>
+            </td>
+            <td><a th:href="@{/admin/term/delete(id=${t.id})}" onclick="return confirm('确定删除该学期？')">删除</a></td>
+        </tr>
+    </table>
+
+    <br>
+    <a href="/home">返回首页</a>
+        </div>
+    </div>
+</body>
+</html>

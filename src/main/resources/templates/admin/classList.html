@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>班级管理</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="topbar">
+        <span class="brand"><span class="logo"><i class="fa-solid fa-graduation-cap"></i></span>班级学生成绩管理系统</span>
+        <span><a href="/home">首页</a> <a href="/logout">退出登录</a></span>
+    </div>
+    <div class="container">
+        <div class="card">
+        <h2>班级管理</h2>
+
+    <form action="/admin/class/add" method="post">
+        班级名称：<input name="className" required>
+        年级：<input name="grade">
+        专业：<input name="major">
+        <button>新增</button>
+    </form>
+
+    <table border="1" cellpadding="6" cellspacing="0">
+        <tr><th>ID</th><th>名称 / 年级 / 专业</th><th>操作</th></tr>
+        <tr th:each="c : ${classes}">
+            <td th:text="${c.id}"></td>
+            <td>
+                <form action="/admin/class/edit" method="post">
+                    <input type="hidden" name="id" th:value="${c.id}">
+                    <input name="className" th:value="${c.className}">
+                    <input name="grade" th:value="${c.grade}">
+                    <input name="major" th:value="${c.major}">
+                    <button>保存</button>
+                </form>
+            </td>
+            <td><a th:href="@{/admin/class/delete(id=${c.id})}" onclick="return confirm('确定删除该班级？')">删除</a></td>
+        </tr>
+    </table>
+
+    <br>
+    <a href="/home">返回首页</a>
+        </div>
+    </div>
+</body>
+</html>

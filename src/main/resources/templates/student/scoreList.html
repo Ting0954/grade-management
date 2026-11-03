@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>我的成绩</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="topbar">
+        <span class="brand"><span class="logo"><i class="fa-solid fa-graduation-cap"></i></span>班级学生成绩管理系统</span>
+        <span class="right">
+            <span class="who"><i class="fa-solid fa-user"></i> <span th:text="${session.loginUser.realName}"></span></span>
+            <a href="/home"><i class="fa-solid fa-house"></i> 首页</a>
+            <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> 退出</a>
+        </span>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2><i class="fa-solid fa-magnifying-glass-chart"></i> 我的成绩</h2>
+            <p class="desc">各科成绩按总评排名，总评由平时30% + 期中30% + 期末40% 计算。</p>
+
+            <p th:if="${msg}" class="msg msg-err" th:text="${msg}"></p>
+
+            <div class="table-wrap">
+                <table th:if="${#lists.isEmpty(items) == false}">
+                    <thead>
+                        <tr>
+                            <th>课程</th>
+                            <th>学期</th>
+                            <th>平时成绩</th>
+                            <th>期中成绩</th>
+                            <th>期末成绩</th>
+                            <th>总评成绩</th>
+                            <th>班级排名</th>
+                            <th>是否及格</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="it : ${items}">
+                            <td th:text="${it.courseName}"></td>
+                            <td th:text="${it.termName}"></td>
+                            <td th:text="${it.usualScore}"></td>
+                            <td th:text="${it.midScore}"></td>
+                            <td th:text="${it.finalScore}"></td>
+                            <td><b th:text="${it.totalScore}"></b></td>
+                            <td th:text="${it.rankInClass}"></td>
+                            <td>
+                                <span th:if="${it.isPass != null and it.isPass == 1}" class="badge badge-ok"><i class="fa-solid fa-circle-check"></i> 及格</span>
+                                <span th:if="${it.isPass != null and it.isPass == 0}" class="badge badge-err"><i class="fa-solid fa-circle-xmark"></i> 不及格</span>
+                                <span th:if="${it.isPass == null}" class="muted">-</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p th:if="${#lists.isEmpty(items)}" class="muted"><i class="fa-solid fa-inbox"></i> 暂无成绩记录。</p>
+        </div>
+    </div>
+
+    <div class="footer">班级学生成绩管理系统 · 学生端</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>成绩录入 - 选择课程</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="topbar">
+        <span class="brand"><span class="logo"><i class="fa-solid fa-graduation-cap"></i></span>班级学生成绩管理系统</span>
+        <span><a href="/home">首页</a> <a href="/logout">退出登录</a></span>
+    </div>
+    <div class="container">
+        <div class="card">
+            <h2>成绩录入：选择课程、班级、学期</h2>
+            <form action="/teacher/score/list" method="get">
+                <label>课程：
+                    <select name="courseId">
+                        <option th:each="c : ${courses}" th:value="${c.id}" th:text="${c.courseName}"></option>
+                    </select>
+                </label>
+                <label>班级：
+                    <select name="classId">
+                        <option th:each="c : ${classes}" th:value="${c.id}" th:text="${c.className}"></option>
+                    </select>
+                </label>
+                <label>学期：
+                    <select name="termId">
+                        <option th:each="t : ${terms}" th:value="${t.id}" th:text="${t.termName}"></option>
+                    </select>
+                </label>
+                <br><br>
+                <button type="submit">查询学生</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

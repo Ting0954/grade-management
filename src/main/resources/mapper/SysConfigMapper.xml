@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grade.mapper.SysConfigMapper">
+
+    <select id="selectAll" resultType="com.grade.entity.SysConfig">
+        SELECT * FROM sys_config
+    </select>
+
+    <select id="selectByKey" resultType="com.grade.entity.SysConfig">
+        SELECT * FROM sys_config WHERE config_key = #{configKey}
+    </select>
+
+    <insert id="insert" parameterType="com.grade.entity.SysConfig" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_config (config_key, config_value, remark)
+        VALUES (#{configKey}, #{configValue}, #{remark})
+    </insert>
+
+    <update id="update" parameterType="com.grade.entity.SysConfig">
+        UPDATE sys_config SET config_value = #{configValue}, remark = #{remark} WHERE config_key = #{configKey}
+    </update>
+</mapper>

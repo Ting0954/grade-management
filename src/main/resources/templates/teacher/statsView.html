@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>成绩统计结果</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+</head>
+<body>
+    <div class="topbar">
+        <span class="brand"><span class="logo"><i class="fa-solid fa-graduation-cap"></i></span>班级学生成绩管理系统</span>
+        <span><a href="/home">首页</a> <a href="/logout">退出登录</a></span>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2><i class="fa-solid fa-chart-simple"></i> 成绩统计结果</h2>
+            <p class="desc">总评成绩 = 平时30% + 期中30% + 期末40%（权重可在系统参数中调整）。</p>
+
+            <div class="stat-grid">
+                <div class="stat"><div class="k">已录人数</div><div class="v" th:text="${s.count}"></div></div>
+                <div class="stat"><div class="k">平均分</div><div class="v" th:text="${s.avg}"></div></div>
+                <div class="stat"><div class="k">最高分</div><div class="v" th:text="${s.max}"></div></div>
+                <div class="stat"><div class="k">最低分</div><div class="v" th:text="${s.min}"></div></div>
+                <div class="stat"><div class="k">及格人数</div><div class="v" th:text="${s.passCount}"></div></div>
+                <div class="stat"><div class="k">及格率</div><div class="v sm" th:text="${s.passRate} + '%'"></div></div>
+                <div class="stat"><div class="k">优秀人数(≥90)</div><div class="v" th:text="${s.excellentCount}"></div></div>
+                <div class="stat"><div class="k">优秀率</div><div class="v sm" th:text="${s.excellentRate} + '%'"></div></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fa-solid fa-chart-column"></i> 可视化图表</h2>
+            <div class="chart-row">
+                <div class="chart-box"><div id="distChart" style="height:360px;"></div></div>
+                <div class="chart-box"><div id="passChart" style="height:360px;"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        var count = [[${s.count}]];
+        var distChart = echarts.init(document.getElementById('distChart'));
+        distChart.setOption({
+            title: { text: '分数段分布（柱状图）' },
+            xAxis: { type: 'category', data: ['90-100', '80-89', '70-79', '60-69', '0-59'] },
+            yAxis: { type: 'value', minInterval: 1 },
+            series: [{
+                type: 'bar',
+                data: [[${s.g90}], [[${s.g80}]], [[${s.g70}]], [[${s.g60}]], [[${s.below60}]]],
+                label: { show: true, position: 'top' }
+            }]
+        });
+
+        var passChart = echarts.init(document.getElementById('passChart'));
+        passChart.setOption({
+            title: { text: '及格情况（饼图）' },
+            tooltip: { trigger: 'item' },
+            series: [{
+                type: 'pie',
+                radius: '60%',
+                data: [
+                    { value: [[${s.passCount}]], name: '及格' },
+                    { value: (count - [[${s.passCount}]]) , name: '不及格' }
+                ]
+            }]
+        });
+    </script>
+
+    <div class="footer">班级学生成绩管理系统 · 教师端</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grade.mapper.TermMapper">
+
+    <select id="selectAll" resultType="com.grade.entity.Term">
+        SELECT * FROM term
+    </select>
+
+    <select id="selectById" resultType="com.grade.entity.Term">
+        SELECT * FROM term WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.grade.entity.Term" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO term (term_name, start_year, semester)
+        VALUES (#{termName}, #{startYear}, #{semester})
+    </insert>
+
+    <update id="update" parameterType="com.grade.entity.Term">
+        UPDATE term SET term_name = #{termName}, start_year = #{startYear}, semester = #{semester} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM term WHERE id = #{id}
+    </delete>
+</mapper>

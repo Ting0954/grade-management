@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员首页 - 班级学生成绩管理系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="topbar">
+        <span class="brand"><span class="logo"><i class="fa-solid fa-graduation-cap"></i></span>班级学生成绩管理系统</span>
+        <span class="right">
+            <span class="who"><i class="fa-solid fa-user-shield"></i> <span th:text="${session.loginUser.realName}"></span>（管理员）</span>
+            <a href="/home"><i class="fa-solid fa-house"></i> 首页</a>
+            <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> 退出</a>
+        </span>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <div>
+                <h1>你好，<span th:text="${session.loginUser.realName}"></span> 管理员</h1>
+                <p>管理系统的基础数据，维护班级、课程与学期信息。</p>
+            </div>
+            <div class="big-emoji"><i class="fa-solid fa-user-gear"></i></div>
+        </div>
+
+        <div class="menu">
+            <a href="/admin/class/list">
+                <span class="ic"><i class="fa-solid fa-users"></i></span>
+                <span><div class="t">班级管理</div><div class="s">维护班级名称、年级、专业</div></span>
+            </a>
+            <a href="/admin/course/list">
+                <span class="ic"><i class="fa-solid fa-book-open"></i></span>
+                <span><div class="t">课程管理</div><div class="s">维护课程与学分信息</div></span>
+            </a>
+            <a href="/admin/term/list">
+                <span class="ic"><i class="fa-solid fa-calendar-days"></i></span>
+                <span><div class="t">学期管理</div><div class="s">维护学年与学期</div></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">班级学生成绩管理系统 · 管理员端</div>
+</body>
+</html>

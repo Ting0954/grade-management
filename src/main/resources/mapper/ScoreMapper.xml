@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grade.mapper.ScoreMapper">
+
+    <select id="selectAll" resultType="com.grade.entity.Score">
+        SELECT * FROM score
+    </select>
+
+    <select id="selectById" resultType="com.grade.entity.Score">
+        SELECT * FROM score WHERE id = #{id}
+    </select>
+
+    <select id="selectByStudentCourseTerm" resultType="com.grade.entity.Score">
+        SELECT * FROM score
+        WHERE student_id = #{studentId} AND course_id = #{courseId} AND term_id = #{termId}
+    </select>
+
+    <select id="selectByCourseTerm" resultType="com.grade.entity.Score">
+        SELECT * FROM score WHERE course_id = #{courseId} AND term_id = #{termId}
+    </select>
+
+    <select id="selectByCourseClassTerm" resultType="com.grade.entity.Score">
+        SELECT * FROM score WHERE course_id = #{courseId} AND class_id = #{classId} AND term_id = #{termId}
+    </select>
+
+    <select id="selectByStudentId" resultType="com.grade.entity.Score">
+        SELECT * FROM score WHERE student_id = #{studentId}
+    </select>
+
+    <insert id="insert" parameterType="com.grade.entity.Score" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO score (student_id, course_id, class_id, term_id,
+                           usual_score, mid_score, final_score,
+                           total_score, rank_in_class, is_pass, makeup_status)
+        VALUES (#{studentId}, #{courseId}, #{classId}, #{termId},
+                #{usualScore}, #{midScore}, #{finalScore},
+                #{totalScore}, #{rankInClass}, #{isPass}, #{makeupStatus})
+    </insert>
+
+    <update id="update" parameterType="com.grade.entity.Score">
+        UPDATE score
+        SET usual_score = #{usualScore}, mid_score = #{midScore}, final_score = #{finalScore},
+            total_score = #{totalScore}, rank_in_class = #{rankInClass},
+            is_pass = #{isPass}, makeup_status = #{makeupStatus}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM score WHERE id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>教师首页 - 班级学生成绩管理系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="topbar">
+        <span class="brand"><span class="logo"><i class="fa-solid fa-graduation-cap"></i></span>班级学生成绩管理系统</span>
+        <span class="right">
+            <span class="who"><i class="fa-solid fa-user"></i> <span th:text="${session.loginUser.realName}"></span>（教师）</span>
+            <a href="/home"><i class="fa-solid fa-house"></i> 首页</a>
+            <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> 退出</a>
+        </span>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <div>
+                <h1>你好，<span th:text="${session.loginUser.realName}"></span> 老师</h1>
+                <p>欢迎回到班级学生成绩管理系统，请选择下方功能开始工作。</p>
+            </div>
+            <div class="big-emoji"><i class="fa-solid fa-chalkboard-user"></i></div>
+        </div>
+
+        <div class="menu">
+            <a href="/teacher/score/select">
+                <span class="ic"><i class="fa-solid fa-pen-to-square"></i></span>
+                <span><div class="t">录入 / 修改成绩</div><div class="s">按课程、班级、学期录入学生成绩</div></span>
+            </a>
+            <a href="/teacher/stats/select">
+                <span class="ic"><i class="fa-solid fa-chart-pie"></i></span>
+                <span><div class="t">成绩统计</div><div class="s">平均分、及格率、分布图</div></span>
+            </a>
+            <a href="/teacher/makeup/select">
+                <span class="ic"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                <span><div class="t">成绩预警 / 补考管理</div><div class="s">标记不及格学生及补考状态</div></span>
+            </a>
+            <a href="/teacher/score/importSelect">
+                <span class="ic"><i class="fa-solid fa-file-import"></i></span>
+                <span><div class="t">Excel 批量导入</div><div class="s">从 CSV 文件批量导入成绩</div></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">班级学生成绩管理系统 · 教师端</div>
+</body>
+</html>

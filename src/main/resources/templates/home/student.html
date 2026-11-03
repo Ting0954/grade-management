@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生首页 - 班级学生成绩管理系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="topbar">
+        <span class="brand"><span class="logo"><i class="fa-solid fa-graduation-cap"></i></span>班级学生成绩管理系统</span>
+        <span class="right">
+            <span class="who"><i class="fa-solid fa-user"></i> <span th:text="${session.loginUser.realName}"></span>（学生）</span>
+            <a href="/home"><i class="fa-solid fa-house"></i> 首页</a>
+            <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> 退出</a>
+        </span>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <div>
+                <h1>你好，<span th:text="${session.loginUser.realName}"></span> 同学</h1>
+                <p>在这里可以查询你的各科成绩、班级排名与及格情况。</p>
+            </div>
+            <div class="big-emoji"><i class="fa-solid fa-graduation-cap"></i></div>
+        </div>
+
+        <div class="menu">
+            <a href="/student/score/list">
+                <span class="ic"><i class="fa-solid fa-magnifying-glass-chart"></i></span>
+                <span><div class="t">查询我的成绩</div><div class="s">查看各科成绩、总评、排名与及格</div></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">班级学生成绩管理系统 · 学生端</div>
+</body>
+</html>

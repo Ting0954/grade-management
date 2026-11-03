@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>预警名单 / 补考管理</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="topbar">
+        <span class="brand"><span class="logo"><i class="fa-solid fa-graduation-cap"></i></span>班级学生成绩管理系统</span>
+        <span><a href="/home">首页</a> <a href="/logout">退出登录</a></span>
+    </div>
+    <div class="container">
+        <div class="card">
+        <h2>预警名单（总评不及格）</h2>
+
+    <p th:if="${#lists.isEmpty(items)}" style="color:green;">该次考试无不及格学生，无需预警。✓</p>
+
+    <table border="1" cellpadding="6" cellspacing="0" th:if="${!#lists.isEmpty(items)}">
+        <tr>
+            <th>学号</th><th>姓名</th><th>总评</th><th>班级排名</th><th>补考状态</th>
+        </tr>
+        <tr th:each="it : ${items}">
+            <td th:text="${it.studentNo}"></td>
+            <td th:text="${it.name}"></td>
+            <td th:text="${it.totalScore}"></td>
+            <td th:text="${it.rankInClass}"></td>
+            <td>
+                <form action="/teacher/makeup/update" method="post">
+                    <input type="hidden" name="courseId" th:value="${courseId}">
+                    <input type="hidden" name="classId" th:value="${classId}">
+                    <input type="hidden" name="termId" th:value="${termId}">
+                    <input type="hidden" name="studentId" th:value="${it.studentId}">
+                    <select name="status">
+                        <option value="无" th:selected="${it.makeupStatus == '无'}">无</option>
+                        <option value="补考中" th:selected="${it.makeupStatus == '补考中'}">补考中</option>
+                        <option value="已通过补考" th:selected="${it.makeupStatus == '已通过补考'}">已通过补考</option>
+                        <option value="重修" th:selected="${it.makeupStatus == '重修'}">重修</option>
+                    </select>
+                    <button>保存</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+    <a href="/teacher/makeup/select">返回重新选择</a> |
+    <a href="/home">返回首页</a>
+        </div>
+    </div>
+</body>
+</html>

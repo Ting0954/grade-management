@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grade.mapper.TeacherCourseMapper">
+
+    <select id="selectAll" resultType="com.grade.entity.TeacherCourse">
+        SELECT * FROM teacher_course
+    </select>
+
+    <select id="selectByTeacherId" resultType="com.grade.entity.TeacherCourse">
+        SELECT * FROM teacher_course WHERE teacher_id = #{teacherId}
+    </select>
+
+    <select id="selectByCourseId" resultType="com.grade.entity.TeacherCourse">
+        SELECT * FROM teacher_course WHERE course_id = #{courseId}
+    </select>
+
+    <insert id="insert" parameterType="com.grade.entity.TeacherCourse" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO teacher_course (teacher_id, course_id, class_id)
+        VALUES (#{teacherId}, #{courseId}, #{classId})
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM teacher_course WHERE id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grade.mapper.ClassInfoMapper">
+
+    <select id="selectAll" resultType="com.grade.entity.ClassInfo">
+        SELECT * FROM class_info
+    </select>
+
+    <select id="selectById" resultType="com.grade.entity.ClassInfo">
+        SELECT * FROM class_info WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.grade.entity.ClassInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO class_info (class_name, grade, major)
+        VALUES (#{className}, #{grade}, #{major})
+    </insert>
+
+    <update id="update" parameterType="com.grade.entity.ClassInfo">
+        UPDATE class_info
+        SET class_name = #{className}, grade = #{grade}, major = #{major}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM class_info WHERE id = #{id}
+    </delete>
+</mapper>
